@@ -79,7 +79,7 @@ public class AdminController {
 
 	// Metodo para borrar usuarios
 	@GetMapping("/deleteUser/{id}")
-	public String removeCurso(@PathVariable("id") int id, RedirectAttributes flash) {
+	public String removeUser(@PathVariable("id") int id, RedirectAttributes flash) {
 		User a = userService.findUserId(id);
 		try {
 			userService.deleteUser(a.getUsername());

@@ -28,122 +28,120 @@
 </head>
 
 <body id="page-top">
-<div th:replace="~{fragments :: header}"></div>
+	<div th:replace="~{fragments :: header}"></div>
+	<h2 class="page-section-heading text-center text-secondary mb-0">Users</h2>
+	<div class="panel panel-default">
+		<div class="panel-heading"></div>
+		<div style="margin: 40px">
+			<table class="table table-striped table-bordered">
+				<thead
+					style="background: rgb(52, 91, 203); border: 1px solid rgb(52, 91, 203);">
+					<tr style="color: #FFFFFF">
+						<th>Username</th>
+						<th>Name</th>
+						<th>Surname</th>
+						<th>Role</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
 
-				<div class="panel panel-default">
-					<div class="panel-heading"></div>
-					<div style="margin: 40px">
-						<table class="table table-striped table-bordered">
-							<thead class="thead-light">
-								<tr>
-									<th>Username</th>
-									<th>Name</th>
-									<th>Surname</th>
-									<th>Role</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
+				<tbody th:each="user: ${users}">
+					<tr>
+						<th th:text=${user.username}></th>
+						<th th:text=${user.name}></th>
+						<th th:text=${user.surname}></th>
+						<th th:text=${user.role}></th>
 
-							<tbody th:each="user: ${users}">
-								<tr>
-									<th th:text=${user.username}></th>
-									<th th:text=${user.name}></th>
-									<th th:text=${user.surname}></th>
-									<th th:text=${user.role}></th>
-									<th><a th:href="@{/users/deleteUser/}+ ${user.id}"
-										th:onclick="return confirm('&iquestDou you want to delete this user?');">
-											<button type="button" class="btn btn-default"
-												data-toggle="tooltip" data-placement="bottom"
-												title="Delete user">
-												<i class="fa-sharp fa-solid fa-trash"></i>
-											</button>
-									</a> <a th:href="@{/users/formUser/}+ ${user.username}">
-											<button type="button" class="btn btn-default"
-												data-toggle="tooltip" data-placement="bottom"
-												title="Edit user">
-												<i class="fa-sharp fa-solid fa-pen-to-square"></i>
-											</button>
-									</a> <a th:href="@{/users/activateUser/}+ ${user.username}"
-										th:if="${user.enabled == false}">
-											<button type="button" class="btn btn-default"
-												data-toggle="tooltip" data-placement="bottom"
-												title="Activate user">
-												<i class="fa-solid fa-user-xmark"></i>
-											</button>
-									</a> <a th:href="@{/users/activateUser/}+ ${user.username}"
-										th:if="${user.enabled == true}">
-											<button type="button" class="btn btn-default"
-												data-toggle="tooltip" data-placement="bottom"
-												title="Deactivate user">
-												<i class="fa-solid fa-user-check"></i>
-											</button>
-									</a></th>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="alert alert-success" th:if="${success != null}"
-					th:text="${success}"></div>
-				<div class="alert alert-warning" th:if="${warning != null}"
-					th:text="${warning}"></div>
-				<div class="alert alert-info" th:if="${info != null}"
-					th:text="${info}"></div>
-				<!-- End of Content Wrapper -->
 
-			<!-- End of Page Wrapper -->
-
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top"> <i
-				class="fas fa-angle-up"></i>
-			</a>
-
-			<!-- Logout Modal-->
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Ready to
-								Leave?</h5>
-							<button class="close" type="button" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">Select "Logout" below if you are
-							ready to end your current session.</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button"
-								data-dismiss="modal">Cancel</button>
-							<form class="form-inline" th:action="@{/auth/logout}"
-								method="post">
-								<button class="btn btn-primary" type="submit" data-toggle="tooltip"
-									data-placement="bottom">Logout
+						<th><a th:href="@{/users/deleteUser/}+ ${user.id}"
+							th:onclick="return confirm('&iquestDou you want to delete this user?');">
+								<button type="button" class="btn btn-default"
+									data-toggle="tooltip" data-placement="bottom"
+									title="Delete user">
+									<i class="fa-sharp fa-solid fa-trash"></i>
 								</button>
-							</form>
-						</div>
-					</div>
+						</a> <a th:href="@{/users/formUser/}+ ${user.username}">
+								<button type="button" class="btn btn-default"
+									data-toggle="tooltip" data-placement="bottom" title="Edit user">
+									<i class="fa-sharp fa-solid fa-pen-to-square"></i>
+								</button>
+						</a> <a th:href="@{/users/activateUser/}+ ${user.username}"
+							th:if="${user.enabled == false}">
+								<button type="button" class="btn btn-default"
+									data-toggle="tooltip" data-placement="bottom"
+									title="Activate user">
+									<i class="fa-solid fa-user-xmark"></i>
+								</button>
+						</a> <a th:href="@{/users/activateUser/}+ ${user.username}"
+							th:if="${user.enabled == true}">
+								<button type="button" class="btn btn-default"
+									data-toggle="tooltip" data-placement="bottom"
+									title="Deactivate user">
+									<i class="fa-solid fa-user-check"></i>
+								</button>
+						</a></th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="alert alert-success" th:if="${success != null}"
+		th:text="${success}"></div>
+	<div class="alert alert-warning" th:if="${warning != null}"
+		th:text="${warning}"></div>
+	<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+	<!-- End of Content Wrapper -->
+
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<form class="form-inline" th:action="@{/auth/logout}" method="post">
+						<button class="btn btn-primary" type="submit"
+							data-toggle="tooltip" data-placement="bottom">Logout</button>
+					</form>
 				</div>
 			</div>
-			
-			<!-- Bootstrap core JavaScript-->
-			<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-			<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		</div>
+	</div>
 
-			<!-- Core plugin JavaScript-->
-			<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
-			<!-- Custom scripts for all pages-->
-			<script th:src="@{/js/sb-admin-2.min.js}"></script>
+	<!-- Core plugin JavaScript-->
+	<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
-			<!-- Page level plugins -->
-			<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+	<!-- Custom scripts for all pages-->
+	<script th:src="@{/js/sb-admin-2.min.js}"></script>
 
-			<!-- Page level custom scripts -->
-			<script th:src="@{/js/demo/chart-area-demo.js}"></script>
-			<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
-			
+	<!-- Page level plugins -->
+	<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+
+	<!-- Page level custom scripts -->
+	<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+	<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
+
 </body>
 
 </html>
