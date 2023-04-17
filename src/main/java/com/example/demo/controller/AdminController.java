@@ -47,8 +47,8 @@ public class AdminController {
 	@PostMapping("/addVeterinary")
 	public String addVeterinary(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			RedirectAttributes flash, Model model) {
+		User exist = userService.registerVeterinary(user);
 		if (user.getId() == 0) {
-			User exist = userService.registerVeterinary(user);
             if (exist != null) {
                 flash.addFlashAttribute("success", "Veterinary created successfully");
 
@@ -57,11 +57,17 @@ public class AdminController {
                 return "redirect:/users/formUser?error";
             }
 		} else {
-			userService.updateUser(user);
-			if (user.getRole().equals("VETERINARY"))
-					flash.addFlashAttribute("success", "Veterinary updated successfully");
-			else
-				flash.addFlashAttribute("success", "User updated successfully");
+			if (exist != null) {
+				userService.updateUser(user);
+				if (user.getRole().equals("VETERINARY"))
+						flash.addFlashAttribute("success", "Veterinary updated successfully");
+				else
+					flash.addFlashAttribute("success", "User updated successfully");
+
+            } else {
+                flash.addFlashAttribute("error", "Username already exist");
+                return "redirect:/users/formUser?error";
+            }
 		}
 		return "redirect:/users/listUsers";
 
