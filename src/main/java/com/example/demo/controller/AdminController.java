@@ -72,7 +72,7 @@ public class AdminController {
 	public String addUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			RedirectAttributes flash, Model model) {
 		userService.updateUser(user);
-		flash.addFlashAttribute("success", "Manager updated successfully");
+		flash.addFlashAttribute("success", "User updated successfully");
 		return "redirect:/users/listUsers";
 
 	}
