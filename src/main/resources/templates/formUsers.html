@@ -28,130 +28,113 @@
 </head>
 
 <body id="page-top">
-<div th:replace="~{fragments :: header}"></div>
-				<form th:action="@{/users/addVeterinary}" th:object="${user}"
-					method="post"
-					style="text-align: center; width: 500px; margin: auto;">
+	<div th:replace="~{fragments :: header}"></div>
+	<form th:action="@{/users/addVeterinary}" th:object="${user}"
+		method="post" style="text-align: center; width: 500px; margin: auto;">
 
-					<h2 th:text="${user.id != 0} ? 'Edit user' : 'New veterinary'">New
-						User</h2>
+		<h2 th:text="${user.id != 0} ? 'Edit user' : 'New veterinary'">New
+			User</h2>
 
-					<input type="hidden" th:field="*{id}" id="id"> <br>
-					<div class="form-group">
-						<label>Name: </label> <input type="text" class="form-control"
-							th:field="*{name}" placeholder="Name" id="name" required />
-					</div>
-					<div class="form-group">
-						<label>Surname: </label> <input type="text" class="form-control"
-							th:field="*{surname}" placeholder="Surname" id="surname" required />
-					</div>
-					<div class="form-group" th:if="*{id!=0}">
-						<label>Username: </label> <input type="text"
-							class="form-control" th:field="*{username}"
-							placeholder="Username" id="username" required />
-					</div>
-					<div class="form-group" th:if="*{id==0}">
-						<label>Username: </label> <input type="text" class="form-control"
-							th:field="*{username}" placeholder="Username" id="username"
-							required />
-						<div th:if="${error!=null}" class="alert alert-danger">The
-							username already exist</div>
-					</div>
-					<div class="form-group">
-						<label>Password </label> <input type="password"
-							class="form-control" th:field="*{password}"
-							placeholder="Password" id="password1" name="password1"
-							minlength="6" required />
-					</div>
-					<div class="form-group">
-						<label>Repeat password </label> <input type="password"
-							id="password2" name="password2" placeholder="Repeat password"
-							oninput="checkPassword()" class="form-control" required>
-					</div>
-					<script>
-						function checkPassword() {
-							var password1 = document
-									.getElementById("password1").value;
-							var password2 = document
-									.getElementById("password2").value;
-							if (password1 != password2) {
-								document.getElementById("password2")
-										.setCustomValidity(
-												"Las contraseñas no coinciden");
-							} else {
-								document.getElementById("password2")
-										.setCustomValidity("");
-							}
-						}
-					</script>
+		<input type="hidden" th:field="*{id}" id="id"> <br>
+		<div class="form-group">
+			<label>Name: </label> <input type="text" class="form-control"
+				th:field="*{name}" placeholder="Name" id="name" required />
+		</div>
+		<div class="form-group">
+			<label>Surname: </label> <input type="text" class="form-control"
+				th:field="*{surname}" placeholder="Surname" id="surname" required />
+		</div>
+		<div class="form-group" th:if="*{id!=0}">
+			<label>Username: </label> <input type="text" class="form-control"
+				th:field="*{username}" placeholder="Username" id="username" required />
+		</div>
+		<div class="form-group" th:if="*{id==0}">
+			<label>Username: </label> <input type="text" class="form-control"
+				th:field="*{username}" placeholder="Username" id="username" required />
+			<div th:if="${error!=null}" class="alert alert-danger">The
+				username already exist</div>
+		</div>
+		<div class="form-group">
+			<label>Password </label> <input type="password" class="form-control"
+				th:field="*{password}" placeholder="Password" id="password1"
+				name="password1" minlength="6" required />
+		</div>
+		<div class="form-group">
+			<label>Repeat password </label> <input type="password" id="password2"
+				name="password2" placeholder="Repeat password"
+				oninput="checkPassword()" class="form-control" required>
+		</div>
 
-					<div class="form-group">
-						<input type="hidden" class="form-control" th:field="*{role}"
-							id="role" required />
-					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
-					<a sec:authorize="hasAuthority('ADMIN')"
-						th:href="@{/users/listUsers}">
-						<button type="button" class="btn btn-primary">Back</button>
-					</a>
-					<br>
-					<br>
-				</form>
-				<div class="alert alert-success" th:if="${success != null}"
-					th:text="${success}"></div>
-				<div class="alert alert-warning" th:if="${warning != null}"
-					th:text="${warning}"></div>
-				<div class="alert alert-info" th:if="${info != null}"
-					th:text="${info}"></div>
-				<!-- End of Content Wrapper -->
+		function checkPassword() { var password1 =
+		document.getElementById("password1").value; var password2 =
+		document.getElementById("password2").value; if (password1 !=
+		password2) { document.getElementById("password2").setCustomValidity(
+		"Passwords dont match"); } else {
+		document.getElementById("password2").setCustomValidity(""); } }
+		</script>
 
-			<!-- End of Page Wrapper -->
+		<div class="form-group">
+			<input type="hidden" class="form-control" th:field="*{role}"
+				id="role" required />
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+		<a sec:authorize="hasAuthority('ADMIN')" th:href="@{/users/listUsers}">
+			<button type="button" class="btn btn-primary">Back</button>
+		</a> <br> <br>
+	</form>
+	<div class="alert alert-success" th:if="${success != null}"
+		th:text="${success}"></div>
+	<div class="alert alert-warning" th:if="${warning != null}"
+		th:text="${warning}"></div>
+	<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+	<!-- End of Content Wrapper -->
 
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top"> <i
-				class="fas fa-angle-up"></i>
-			</a>
+	<!-- End of Page Wrapper -->
 
-			<!-- Logout Modal-->
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Ready to
-								Leave?</h5>
-							<button class="close" type="button" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">Select "Logout" below if you are
-							ready to end your current session.</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button"
-								data-dismiss="modal">Cancel</button>
-							<a class="btn btn-primary" href="login.html">Logout</a>
-						</div>
-					</div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
 				</div>
 			</div>
+		</div>
+	</div>
 
-			<!-- Bootstrap core JavaScript-->
-			<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-			<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
-			<!-- Core plugin JavaScript-->
-			<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+	<!-- Core plugin JavaScript-->
+	<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
-			<!-- Custom scripts for all pages-->
-			<script th:src="@{/js/sb-admin-2.min.js}"></script>
+	<!-- Custom scripts for all pages-->
+	<script th:src="@{/js/sb-admin-2.min.js}"></script>
 
-			<!-- Page level plugins -->
-			<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+	<!-- Page level plugins -->
+	<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
 
-			<!-- Page level custom scripts -->
-			<script th:src="@{/js/demo/chart-area-demo.js}"></script>
-			<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
+	<!-- Page level custom scripts -->
+	<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+	<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
 </body>
 
 </html>
