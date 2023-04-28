@@ -113,7 +113,7 @@ public class UserService implements UserDetailsService {
 
     public List<com.example.demo.entity.User> listAllUsers() {
     	List<com.example.demo.entity.User> usersList= userRepository.findAll().stream().collect(Collectors.toList());
-        List<com.example.demo.entity.User> filteredList= usersList.stream().filter(x->x.getRole().equals("VETERINARY") || x.getRole().equals("USER")).collect(Collectors.toList());
+        List<com.example.demo.entity.User> filteredList= usersList.stream().filter(x->x.getRole().equals("ROLE_VETERINARY") || x.getRole().equals("ROLE_USER")).collect(Collectors.toList());
         return filteredList;
     }
 
