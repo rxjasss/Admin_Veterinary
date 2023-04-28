@@ -53,26 +53,25 @@
 						<th th:text=${#strings.substring(user.role,5)}></th>
 
 						<th>
-							<button type="button" class="btn btn-default"
-								data-toggle="modal" data-placement="bottom"
-								title="Delete user"
+							<button type="button" class="btn btn-default" data-toggle="modal"
+								data-placement="bottom" title="Delete user"
 								th:data-target="'#delete-modal-' + ${user.id}">
 								<i class="fa-sharp fa-solid fa-trash"></i>
-							</button> 
-							<!-- Ventana modal de confirmación de eliminación -->
+							</button> <!-- Ventana modal de confirmación de eliminación -->
 							<div class="modal fade" th:id="'delete-modal-' + ${user.id}"
 								tabindex="-1" role="dialog" aria-labelledby="delete-modal-label">
 								<div class="modal-dialog" role="document">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+											<h5 class="modal-title" id="exampleModalLabel">Are you
+												sure?</h5>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
-										<div class="modal-body">Select "Delete" below if you are ready
-					to delete the user</div>
+										<div class="modal-body">Select "Delete" below if you are
+											ready to delete the user</div>
 										<div class="modal-footer">
 											<form
 												th:action="@{/users/deleteUser/{userId}(userId=${user.id})}"
