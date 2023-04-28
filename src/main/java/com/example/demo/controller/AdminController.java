@@ -26,6 +26,7 @@ import com.example.demo.serviceImpl.UserService;
 public class AdminController {
 	private static final String USER_VIEW = "users";
 	private static final String FORM_VIEW = "formUsers";
+	private static final String FORM_PASSWORD_VIEW = "formPasswordUsers";
 
 	@Autowired
 	@Qualifier("userService")
@@ -68,6 +69,7 @@ public class AdminController {
 
 	}
 
+
 	// Metodo para editar usuarios
 	@PostMapping("/addUser")
 	public String addUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
@@ -93,17 +95,29 @@ public class AdminController {
 		return "redirect:/users/listUsers";
 	}
 
-	@GetMapping(value = { "/formUser", "/formUser/{username}" })
-    public String formUser(@PathVariable(name = "username", required = false) String username, Model model) {
-        if (username != null) {
-            model.addAttribute("user", userService.findUser(username));
+	@GetMapping(value = { "/formUser", "/formUser/{username}"})
+	public String formUser(@PathVariable(name = "username", required = false) String username, Model model) {
+		if (username != null) {
+			model.addAttribute("user", userService.findUser(username));
 
-        }else {
-            model.addAttribute("user",new User());
-        }
+		} else {
+			model.addAttribute("user", new User());
+		}
 
-        return FORM_VIEW;
-    }
+		return FORM_VIEW;
+	}
+	
+	@GetMapping(value = { "/formPasswordUser/{username}" })
+	public String formPasswordUser(@PathVariable(name = "username", required = false) String username, Model model) {
+		if (username != null) {
+			model.addAttribute("user", userService.findUser(username));
+
+		} else {
+			model.addAttribute("user", new User());
+		}
+
+		return FORM_PASSWORD_VIEW;
+	}
 
 	// Metodo de activar/desactivar usuarios
 	@GetMapping("/activateUser/{username}")
