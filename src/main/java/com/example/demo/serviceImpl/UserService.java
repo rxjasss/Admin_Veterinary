@@ -4,6 +4,8 @@ package com.example.demo.serviceImpl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -117,5 +119,10 @@ public class UserService implements UserDetailsService {
         List<com.example.demo.entity.User> filteredList= usersList.stream().filter(x->x.getRole().equals("ROLE_VETERINARY") || x.getRole().equals("ROLE_USER")).collect(Collectors.toList());
         return filteredList;
     }
+
+	public com.example.demo.entity.User updateUserWithoutPass(com.example.demo.entity.User user) {
+        return userRepository.save(user);
+		
+	}
 
 }

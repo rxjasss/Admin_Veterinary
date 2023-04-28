@@ -25,7 +25,7 @@
 
 <body id="page-top">
 	<div th:replace="~{fragments :: header}"></div>
-	<form th:action="@{/users/addVeterinary}" th:object="${user}" method="post"
+	<form th:action="${user.id != 0} ? @{/users/addVeterinaryWithoutPass} : @{/users/addVeterinary}" th:object="${user}" method="post"
 		style="text-align: center; width: 500px; margin: auto;">
 
 		<h2 th:text="${user.id != 0} ? 'Edit user' : 'New veterinary'">New

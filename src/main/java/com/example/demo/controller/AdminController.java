@@ -44,7 +44,7 @@ public class AdminController {
 		return mav;
 	}
 
-	// Metodo para crear/editar un veterinario
+	// Metodo para crear/editar un usuario
 	@PostMapping("/addVeterinary")
 	public String addVeterinary(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
 			RedirectAttributes flash, Model model) {
@@ -68,17 +68,32 @@ public class AdminController {
 		return "redirect:/users/listUsers";
 
 	}
+	
+	// Metodo para crear/editar un usuario sin contraseña
+		@PostMapping("/addVeterinaryWithoutPass")
+		public String addVeterinaryWithoutPass(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
+				RedirectAttributes flash, Model model) {
+			if (user.getId() == 0) {
+				User userExist = userService.registerVeterinary(user);
+				if (userExist != null) {
+					flash.addFlashAttribute("success", "Veterinary created successfully");
 
+				} else {
+					flash.addFlashAttribute("error", "Username already exists");
+					return "redirect:/users/formUser?error";
+				}
 
-	// Metodo para editar usuarios
-	@PostMapping("/addUser")
-	public String addUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,
-			RedirectAttributes flash, Model model) {
-		userService.updateUser(user);
-		flash.addFlashAttribute("success", "User updated successfully");
-		return "redirect:/users/listUsers";
+			} else {
+				userService.updateUserWithoutPass(user);
+				if (user.getRole().equals("ROLE_USER"))
+					flash.addFlashAttribute("success", "User updated successfully");
+				else
+					flash.addFlashAttribute("success", "Veterinary updated successfully");
+			}
+			return "redirect:/users/listUsers";
 
-	}
+		}
+
 
 	// Metodo para borrar usuarios
 	@GetMapping("/deleteUser/{id}")
